@@ -94,29 +94,15 @@ export const ManageMenu: React.FC = () => {
   /* ================= DELETE MENU ITEM ================= */
 
 const deleteMenuItem = async (id: string) => {
-  Alert.alert(
-    'Delete Item',
-    'Are you sure you want to delete this item?',
-    [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: async () => {
-          try {
-            console.log('DELETING ITEM:', id);
-
-            await deleteDoc(doc(db, 'menuItems', id));
-            console.log('ITEM DELETED');
-            loadMenuItems();
-          } catch (error) {
-            console.log('DELETE ERROR:', error);
-            Alert.alert('Error', 'Failed to delete item');
-          }
-        }
-      }
-    ]
-  );
+  try {
+    console.log('DELETING ITEM:', id);
+    await deleteDoc(doc(db, 'menuItems', id));
+    console.log('ITEM DELETED');
+    loadMenuItems();
+  } catch (error) {
+    console.error('DELETE ERROR:', error);
+    Alert.alert('Error', 'Failed to delete item');
+  }
 };
 
 
